@@ -1,0 +1,3 @@
+symbosisServer = 4000
+piWorldServer = 4001
+piKidSerrver =4002
