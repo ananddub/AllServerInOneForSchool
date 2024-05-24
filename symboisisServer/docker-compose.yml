@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  database:
+    image: mariadb
+    ports:
+      - "3306:3306"
+    volumes:
+      - database_data:/var/lib/mysql
+
+volumes:
+  database_data:

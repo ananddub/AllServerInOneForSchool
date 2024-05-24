@@ -7,13 +7,10 @@ export const databaseID = {
   user: "root",
   password: "root",
   database: "u932299896_sisdbApp",
+
+  // database: "u932299896_sisdbApp",
 };
-export const localDatabase = {
-  host: "localhost",
-  user: "root",
-  password: "root",
-  database: "u932299896_sisdbApp",
-};
+export const localDatabase = databaseID;
 export const IMAGEADD = "../../uploads/std";
 export const EMPIMGADD = "../../uploads/emp";
 

@@ -1,0 +1,6 @@
+FROM mariadb:latest
+ENV MARIADB_ROOT_PASSWORD=root
+ENV MARIADB_DATABASE=sisdb
+COPY backup.sql /docker-entrypoint-initdb.d/backup.sql
+COPY tbl_admission.sql /docker-entrypoint-initdb.d/tbl_admission.sql
+EXPOSE 3306

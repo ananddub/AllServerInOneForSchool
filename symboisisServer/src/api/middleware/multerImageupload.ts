@@ -2,9 +2,11 @@ const multer = require("multer");
 
 const storage = multer.diskStorage({
   destination: (req: any, file: any, cb: any) => {
+    console.log("started saveing ");
     cb(null, "uploads/std");
   },
   filename: async (req: Request, file: any, cb: any) => {
+    console.log("started saveing ");
     cb(null, file.originalname);
   },
 });
