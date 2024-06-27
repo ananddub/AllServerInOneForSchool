@@ -51,7 +51,7 @@ app.put("/admin/update", Adminupdate);
 app.delete("/admin/delete", Admindeltete);
 app.get("/admin/Auser", listadmin);
 app.get("/admin/Nuser", listnotadmin);
-app.get("/teacher/attendance", marksAttendance);
+app.post("/teacher/attendance", marksAttendance);
 app.post(
     "/documents",
     multerDocumentupload.single("document"),

@@ -18,8 +18,21 @@ export const curSession = (): string => {
 export const getDate = () =>
     `${new Date().getFullYear()}-${new Date().getMonth()}-${new Date().getDate()} `;
 
-export const getCurTime = () =>
-    `${new Date().getHours()}:${new Date().getMinutes()}:${new Date().getSeconds()}`;
+export const getCurTime = () => {
+    const currentDate = new Date();
+    return currentDate.toLocaleTimeString('en-US', { hour12: false });
+}
+
+export const getCurDate = () => {
+    const currentDate = new Date();
+    let formattedDate: string = currentDate.toLocaleDateString('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' });
+    formattedDate = formattedDate.replace('/', '-');
+    formattedDate = formattedDate.replace('/', '-')
+    console.log(formattedDate);
+    return formattedDate;
+    // return (new Date().toLocaleDateString('en-IN', { year: 'numeric', month: '2-digit', day: '2-digit' })).replace('//', '-');
+}
+
 export const getDifTime = (t1: string, t2: string) => {
     const [h1, m1, s1] = t1.split(":");
     const [h2, m2, s2] = t2.split(":");

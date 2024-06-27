@@ -72,8 +72,9 @@ export const Adminlogin = async (req: Request, res: Response) => {
     const insert = `insert into tbl_userlog (sr,uid, date,logintime,duration,logouttime) 
         values (${sr[0]["max(sr)"] + 1},'${datas[0].name
         }', '${getDate()}','${getCurTime()}','','');`;
+    const values: any = await sqlQuerys(`select * from tbl_employeesetting where mob=${username}`)
     await sqlQueryUpdate(insert);
-    res.status(200).send({ status: "success", value: data, image: getEmpImage(data[0].empid) });
+    res.status(200).send({ status: "success", value: values, image: getEmpImage(`${values[0].empid}.jpg`) });
 };
 
 export const Adminlogout = async (req: Request, res: Response) => {
