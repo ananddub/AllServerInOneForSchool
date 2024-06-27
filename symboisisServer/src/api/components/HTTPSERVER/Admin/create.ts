@@ -18,9 +18,8 @@ export const createAdmin = async (req: Request, res: Response) => {
     const check = `select * userlogin where username = '${username}';`;
     if ((await sqlQuerys(check)).length > 0)
         return res.status(400).send({ status: "user already exist" });
-    const query = `INSERT INTO userlogin ( username, pass) VALUES ('${username}', ${
-        password === undefined || !password ? "12345678" : password
-    });`;
+    const query = `INSERT INTO userlogin ( username, pass) VALUES ('${username}', ${password === undefined || !password ? "12345678" : password
+        });`;
     sqlQueryUpdate(query);
     console.log(username, password);
     res.status(200).send({ status: "success" });
@@ -71,11 +70,10 @@ export const Adminlogin = async (req: Request, res: Response) => {
     if (datas.length == 0)
         return res.status(400).send({ status: "mob unable to verify" });
     const insert = `insert into tbl_userlog (sr,uid, date,logintime,duration,logouttime) 
-        values (${sr[0]["max(sr)"] + 1},'${
-        datas[0].name
-    }', '${getDate()}','${getCurTime()}','','');`;
+        values (${sr[0]["max(sr)"] + 1},'${datas[0].name
+        }', '${getDate()}','${getCurTime()}','','');`;
     await sqlQueryUpdate(insert);
-    res.status(200).send({ status: "success" });
+    res.status(200).send({ status: "success", value: data, image: getEmpImage(data[0].empid) });
 };
 
 export const Adminlogout = async (req: Request, res: Response) => {
@@ -119,9 +117,8 @@ export const listadmin = async (req: Request, res: Response) => {
         for (let x of data) {
             const last = data.length - 1;
             const value = { ...x, imagepath: getEmpImage(`${x.empid}.jpg`) };
-            const str: String = `${JSON.stringify(value)}${
-                x == data[last] ? "" : ","
-            }\n`;
+            const str: String = `${JSON.stringify(value)}${x == data[last] ? "" : ","
+                }\n`;
             res.write(str);
         }
         res.status(200).end();
