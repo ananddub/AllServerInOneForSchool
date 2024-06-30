@@ -29,7 +29,7 @@ import {
     listadmin,
     listnotadmin,
 } from "./components/HTTPSERVER/Admin/create";
-import { marksAttendance } from "./components/HTTPSERVER/Attendance/attendance";
+import { getAdminTeacherDetail, getTeacherAttendance, marksAttendance } from "./components/HTTPSERVER/Attendance/attendance";
 const path = require("path");
 
 app.put("/imageupload", multerImageupload.single("image"), imageUpload);
@@ -51,7 +51,9 @@ app.put("/admin/update", Adminupdate);
 app.delete("/admin/delete", Admindeltete);
 app.get("/admin/Auser", listadmin);
 app.get("/admin/Nuser", listnotadmin);
+app.post("/admin/getTeacherAttendance", getAdminTeacherDetail);
 app.post("/teacher/attendance", marksAttendance);
+app.post("/teacher/getAttendance", getTeacherAttendance);
 app.post(
     "/documents",
     multerDocumentupload.single("document"),
