@@ -58,13 +58,11 @@ export async function getAdminTeacherDetail(req: Request, res: Response) {
             const query = `SELECT * FROM tbl_empatt WHERE empid='${x.empid}';`
             const queryResult = await sqlQuerys(query);
             const image = getEmpImage(`${x.empid}.jpg`)
-            console.log("employee Image :", image.substr(0, 10))
             const obj = {
                 empid: x.empid,
                 attendance: queryResult,
                 detail: x,
                 ...x,
-                image: image
             }
             const json = JSON.stringify(obj)
 

@@ -1,4 +1,4 @@
-#!/home/dubey/Documents/face/.venv/bin/python3
+#!/home/radhakrishna/Documents/AllServerInOneForSchool/symboisisServer/face/.venv/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys
