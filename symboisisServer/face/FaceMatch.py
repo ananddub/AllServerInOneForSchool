@@ -23,6 +23,7 @@ class IsSame():
     def check(self,img1,img2):
         rimg1 =os.path.join('/tmp',f'{self.randomName()}.jpg') 
         rimg2 =os.path.join('/tmp',f'{self.randomName()}.jpg')
+        print("image has saved :",{"img1":rimg1,"img2":rimg2})
         try:
             image_1 = self.find_face_encodings(img1,rimg1)
             image_2  = self.find_face_encodings(img2,rimg2)
@@ -43,7 +44,7 @@ class IsSame():
                 return {'faces_detected': False, 'message': 'Face Does Not Mached'}
         except Exception as e:
             print("error in face matching :",e)
-            return {'faces_detected': True, 'message': 'Face Not detected.'}
+            return {'faces_detected': False, 'message': 'Face Not detected.'}
         finally:
             os.remove(rimg1)
             os.remove(rimg2)

@@ -13,14 +13,11 @@ def detect_faces():
         file = request.files['image']
         empid = request.form.get('empid')
         empimgpath = f'..//uploads//emp//{empid}.jpg'
-
         if not os.path.isfile(empimgpath):
             result = {'faces_detected': False, 'message': 'photography not completed'}
             return jsonify(result) 
-        
-        image_path = os.path.join('/tmp',f'{facematch.randomName()}.jpg')
+        image_path = os.path.join('/tmp',f'{empid}.jpg')
         file.save(image_path)
-
         try:
             result = facematch.check(empimgpath,image_path)
             return jsonify(result)
@@ -28,10 +25,10 @@ def detect_faces():
             print("error in detect_face :",e)
             return jsonify({'faces_detected': False, 'message': 'No faces detected.'})
         finally:
-            os.remove(image_path)
+            pass
     
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
 if __name__ == '__main__':
-    app.run("0.0.0.0",5000,debug=True) 
+    app.run("::",5000,debug=True) 

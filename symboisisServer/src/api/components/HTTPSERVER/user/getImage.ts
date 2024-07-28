@@ -9,7 +9,7 @@ export const getImagewithDetail = async (req: any, res: Response) => {
         for (let x of data) {
             // imagepath: getImage(`${x.admno}.jpg`);
             const last = data.length - 1;
-            const value = { ...x, imagepath: getImage(`${x.admno}.jpg`) };
+            const value = { ...x, };
             res.write(`${JSON.stringify(value)}${x == data[last] ? "" : ","}\n`);
         }
         res.status(200).end();

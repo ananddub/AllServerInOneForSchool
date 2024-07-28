@@ -36,14 +36,33 @@ CREATE TABLE IF NOT EXISTS userlogin (
     PRIMARY KEY (username)
 );
 
-CREATE TABLE IF NOT EXISTS tbl_stdidcard (
-    admno VARCHAR(255) NULL,
-    imgstatus TINYINT(1) NULL DEFAULT 0,
-    active TINYINT(1) NULL
-);
 
 INSERT INTO tbl_stdidcard (admno, imgstatus, active)
-SELECT admno, 0, 1
-FROM tbl_admission
-WHERE active = 1
-AND session = CONCAT(YEAR(CURDATE()), '-', YEAR(CURDATE()) + 1);
+    SELECT admno, 0, 1
+        FROM tbl_admission
+        WHERE active = 1
+        AND session = CONCAT(YEAR(CURDATE()), '-', YEAR(CURDATE()) + 1)
+        AND NOT EXISTS (SELECT 1 FROM tbl_stdidcard);
+
+CREATE TABLE IF NOT EXISTS tbl_holiday (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    admin BOOLEAN,
+    empid VARCHAR(255) NULL,
+    dates DATE,
+    approved BOOLEAN,
+    rejected BOOLEAN
+);
+
+
+INSERT INTO tbl_stdidcard (admno, imgstatus, active)
+    SELECT admno, 0, 1
+    FROM tbl_admission
+    WHERE active = 1
+    AND session = CONCAT(YEAR(CURDATE()), '-', YEAR(CURDATE()) + 1)
+    AND NOT EXISTS (SELECT 1 FROM tbl_stdidcard);
+
+ALTER TABLE tbl_empatt 
+    ADD latitude INT ,
+    ADD longtitude INT;
+
+

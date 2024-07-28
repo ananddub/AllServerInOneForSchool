@@ -47,6 +47,47 @@ export async function getTeacherAttendance(req: Request, res: Response) {
     const img = getEmpImage(`${empid}.jpg`)
     res.status(200).send({ attendance: queryResult, detail: queryResultall, ...queryResultall[0], image: img });
 }
+
+export async function getTeacherLeave(req: Request, res: Response) {
+    try {
+        const leavequery = `SELECT * FROM tbl_holiday;`
+        const leavelist = await sqlQuerys(leavequery);
+        return res.status(200).send(leavelist);
+    } catch (err) {
+        return res.status(500).send()
+    }
+}
+// admin boolean,
+//     empid VARCHAR(255) NULL,
+//     dates DATE, 
+//     aproved boolean,
+//     reject boolean
+//
+//Not marked in routes 
+//setTeacherLeaveAprove
+//getTeacherLeave
+//setTeacherLeave
+export async function setTeacherLeaveAprove(req: Request, res: Response) {
+    try {
+        const { id } = req.body();
+        const leavequery = `UPDATE tbl_holiday SET approved = true, rejected = false WHERE id = ${id};`
+        const leavelist = await sqlQueryUpdate(leavequery);
+        res.send(200)
+    } catch (err) {
+        res.send(500)
+    }
+}
+export async function setTeacherLeave(req: Request, res: Response) {
+    try {
+        const { empid, dates } = req.body();
+        const leavequery = `INSERT INTO tbl_holiday (admin,empid,dates,aproved,reject) VALUES (false,'${empid}','${dates}',false,false);`
+        await sqlQueryUpdate(leavequery);
+        res.send(200)
+    } catch (err) {
+        res.send(500)
+    }
+}
+
 export async function getAdminTeacherDetail(req: Request, res: Response) {
     try {
         const queryall = `SELECT * FROM tbl_employeesetting`
@@ -57,11 +98,9 @@ export async function getAdminTeacherDetail(req: Request, res: Response) {
         for (let x of queryResultAll) {
             const query = `SELECT * FROM tbl_empatt WHERE empid='${x.empid}';`
             const queryResult = await sqlQuerys(query);
-            const image = getEmpImage(`${x.empid}.jpg`)
             const obj = {
-                empid: x.empid,
                 attendance: queryResult,
-                detail: x,
+                image: '',
                 ...x,
             }
             const json = JSON.stringify(obj)
@@ -76,6 +115,18 @@ export async function getAdminTeacherDetail(req: Request, res: Response) {
     } catch (err) {
         console.log(err)
         res.status(500).end();
+    }
+}
+export async function getTImage(req: Request, res: Response) {
+    try {
+        const empid: any = req.query?.empid
+        console.log("sending image of employee :", empid)
+        const img = getEmpImage(`${empid}.jpg`)
+        if (img.length > 10) console.log("image recieved and sended");
+        res.status(200).send({ image: img })
+    } catch (err) {
+        console.log(err)
+        return res.status(500).send()
     }
 }
 function formatDate(): string {
